@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST 연습</title>
+</head>
+<body>
+    <p>안녕</p>
+    <pre></pre>
+</body>
+<script>
+    // XMLHttpRequest 객체 생성
+    const xhr = new XMLHttpRequest()
+
+    // HTTP 요청 초기화
+    // todos 리소스에 새로운 todo를 생성
+    xhr.open('POST', '/todos')
+
+    // 요청 body에 담아 서버로 전송할 페이로드의 MIME 타입 지정
+    xhr.setRequestHeader('content-type', 'application/json')
+
+    // HTTP 요청 전송
+    // 새로운 todo를 생성하기 위해 페이로드를 서버에 전송해야함
+    xhr.send(JSON.stringify({ id: 4, content: 'React', completed: false}))
+
+    // load 이벤트는 요청이 성공적으로 완료된 경우 발생한다
+    // status 프로퍼티 값이 200(OK) 또는 201(Create)면 정상적으로 응답된 상태이다.
+    xhr.onload = () => {
+        if (xhr.status === 200 || xhr.status === 201) {
+            document.querySelector('pre').textContent = xhr.response
+        } else {
+            console.error('Error', xhr.status, xhr.statusText);
+        }
+    }
+</script>
+</html>
