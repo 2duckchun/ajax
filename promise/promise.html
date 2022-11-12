@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise 실습</title>
+</head>
+<body>
+
+</body>
+<script>
+    const promiseGet = url => {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', url)
+            xhr.send()
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    console.log('success')
+                    resolve(xhr.response)
+                } else {
+                    console.log('failure');
+                    console.log(reject(JSON.parse(xhr.status)));
+                    
+                }
+            }
+        }).then(data => console.log(JSON.parse(data)))
+    }
+
+    promiseGet('https://jsonplaceholder.typicode.com/posts/1')
+
+    // promiseGet('https://jsonplaceholder.typicode.com/posts/1').then(data => console.log(JSON.parse(data)))
+    // setTimeout(() => {
+    //     b.then(data => {
+    //         console.log(JSON.parse(data))
+    //     })
+    // }, 1000)
+
+</script>
+</html>

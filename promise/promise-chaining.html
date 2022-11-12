@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    
+</body>
+<script>
+    const url = 'https://jsonplaceholder.typicode.com'
+
+    const promiseGet = (url) => {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', url)
+            xhr.send()
+
+            xhr.onload = () => {
+                if(xhr.status === 200) {
+                    resolve(JSON.parse(xhr.response))
+                } else {
+                    reject(new Error(xhr.status))
+                }
+            }
+        })
+    }
+
+    promiseGet(`${url}/posts/1`)
+    .then(({ userId }) => promiseGet(`${url}/users/${userId}`))
+    .then((Info) => console.log(Info))
+    .catch((err) => console.error(err))
+
+    /*
+    
+    then, catch, finally 후속 처리 메서드는 언제나 프로미스를 반환하므로 후속 처리 메서드를 언제나 호출할 수 있다
+    이를 프로미스 체이닝이라고 한다
+
+    후속 처리 메서드의 콜백 함수가 프로미스가 아닌 값을 반환하더라도
+    그 값을 암묵적으로 resolve 또는 reject하여 프로미스를 생성해 반환한다.
+    
+    */
+</script>
+</html>
