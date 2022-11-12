@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트핸들러의 반환</title>
+</head>
+<body>
+    <input type="text">
+</body>
+<script>
+    document.querySelector('input').oninput = function() {
+        console.log(this.value)
+        // return this.value
+        // 이벤트 핸들러에서의 반환은 사실 아무 의미가 없다.
+    }
+</script>
+</html>

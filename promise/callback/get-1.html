@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call back hell</title>
+</head>
+<body>
+    <pre></pre>
+</body>
+<script>
+    const get = url => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', url)
+        xhr.send()
+
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const done = JSON.parse(xhr.response)
+                console.log(done.body)
+                document.querySelector('pre').textContent = done.body
+            } else {
+                console.error(`${xhr.status} ${xhr.statusText}`);
+            }
+        }
+    }
+
+    setTimeout(() => {
+        get('https://jsonplaceholder.typicode.com/posts/1')
+    }, 1500);
+</script>
+</html>
