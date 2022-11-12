@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>request</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const request = {
+        get(url) {
+            return fetch(url)
+        },
+
+        post(url, payload) {
+            return fetch(url, {
+                method: 'POST',
+                headers: { 'content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            })
+        },
+
+        delete(url) {
+            return fetch(url, {method: 'DELETE'})
+        }
+    }
+
+    request.get('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => {
+        if(!response.ok) throw new Error(response.statusText)
+        return response.json()
+    })
+    .then(todos => console.log(todos))
+    .catch(err => console.error(err))
+
+    
+</script>
+</html>
